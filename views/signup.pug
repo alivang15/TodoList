@@ -1,0 +1,37 @@
+doctype html 
+html 
+    head 
+        title Sign Up
+        link(rel="stylesheet" href="/css/styles.css")
+    body 
+        .container 
+            h1 Create Your Account 
+            p#error.error-message(style="display: none;")
+            
+            form#signupForm.signup-form
+                .form-group 
+                    label(for="firstName") First Name
+                    input(type="text" id="firstName" name="firstName" required)
+                
+                .form-group 
+                    label(for="lastName") Last Name
+                    input(type="text" id="lastName" name="lastName" required)
+
+                .form-group 
+                    label(for="username") Username 
+                    input(type="text" id="username" name="username" required)
+                
+                .form-group 
+                    label(for="password") Password 
+                    input(type="password" id="password" name="password" required)
+
+                .form-group 
+                    label(for="confirmPassword") Confirm Password 
+                    input(type="password" id="confirmPassword" name="confirmPassword" required)
+
+                .form-actions 
+                    button(type="submit" class="btn btn-primary") Create Account 
+                    a(href="/login" class="btn btn-secondary") Back to Login
+
+    script(src="/js/auth.js")
+    

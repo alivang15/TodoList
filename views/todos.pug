@@ -1,0 +1,101 @@
+doctype html
+html
+    head
+        title My Todo List
+        link(rel="stylesheet" href="/css/styles.css")
+    body
+        .container
+            .header
+                h1 My Todo List
+                p Welcome, #{user.firstName}!
+                a(href="/logout" class="btn btn-danger") Logout
+                button#deleteAccountBtn.btn.btn-danger Delete Account
+            
+            .main-content
+                // Navigation sidebar
+                .sidebar
+                    .nav-item.active(data-filter="all") All Tasks
+                    .nav-item(data-filter="active") Still Working On
+                    .nav-item(data-filter="completed") Completed Tasks
+                
+                // Main content area
+                .content-area
+                    .actions
+                        button#addTaskBtn.btn.btn-primary Add Task
+                    
+                    // Todo list
+                    .todo-list
+                        each todo in todos
+                            .todo-item(data-todo-id=todo.id data-status=todo.status)
+                                .todo-content
+                                    h3= todo.title
+                                    p= todo.description
+                                    if todo.due_date
+                                        p.due-date Due: #{new Date(todo.due_date).toLocaleDateString()}
+                                .todo-actions
+                                    select.status-select(class="form-select")
+                                        option(value="new" selected=todo.status === 'new') New
+                                        option(value="in_progress" selected=todo.status === 'in_progress') In Progress
+                                        option(value="done" selected=todo.status === 'done') Done
+                                    button(class="btn btn-secondary") Edit
+                                    button(class="btn btn-danger") Delete
+                                    button(type="button" class="btn btn-link toggle-comments") Comments
+                                .comments-section(style="display:none;")
+                                    .comments-list
+                                        // Comments will be loaded here by JS
+                                    form.comment-form
+                                        textarea(name="comment" rows="2" placeholder="Comment" required)
+                                        button(type="submit" class="btn btn-primary btn-sm") Add
+
+        // Modal for adding new task
+        #taskModal.modal
+            .modal-content
+                .modal-header
+                    h2 Add New Task
+                    span.close &times;
+                .modal-body
+                    form#todoForm
+                        .form-group
+                            label(for="todoTitle") Title *
+                            input(type="text" id="todoTitle" name="title" required)
+                        
+                        .form-group
+                            label(for="todoDescription") Description
+                            textarea(id="todoDescription" name="description" rows="3")
+                        
+                        .form-group
+                            label(for="todoDate") Due Date
+                            input(type="date" id="todoDate" name="dueDate")
+                        
+                        .form-actions
+                            button(type="submit" class="btn btn-primary") Add Task
+                            button(type="button" class="btn btn-secondary" id="cancelTask") Cancel
+
+        // Edit Modal
+        #editModal.modal
+            .modal-content
+                .modal-header
+                    h2 Edit Task
+                    span.close-edit &times;
+                .modal-body
+                    form#editTodoForm
+                        input(type="hidden" id="editTodoId")
+                        .form-group
+                            label(for="editTodoTitle") Title *
+                            input(type="text" id="editTodoTitle" name="title" required)
+                        
+                        .form-group
+                            label(for="editTodoDescription") Description
+                            textarea(id="editTodoDescription" name="description" rows="3")
+                        
+                        .form-group
+                            label(for="editTodoDate") Due Date
+                            input(type="date" id="editTodoDate" name="dueDate")
+                        
+                        .form-actions
+                            button(type="submit" class="btn btn-primary") Save Changes
+                            button(type="button" class="btn btn-secondary" id="cancelEdit") Cancel
+
+    script.
+        const CURRENT_USER_ID = !{JSON.stringify(user.id)};
+    script(src="/js/todos.js")

@@ -1,0 +1,30 @@
+doctype html 
+html 
+    head 
+        title Login - Ali's Todo App
+        link(rel="stylesheet" href="/css/styles.css")
+    body
+        .container 
+            h1 Login to Ali's Todo App
+            #errorMessage.error-message(style="display: none;")
+            
+            if user
+                p You are already logged in as #{user.firstName}
+                a(href="/todos" class="btn btn-primary") Go to Todo List
+                a(href="/logout" class="btn btn-danger") Logout
+            else
+                form#loginForm.login-form
+                    .form-group
+                        label(for="username") Username
+                        input(type="text" id="username" name="username" required)
+                    
+                    .form-group
+                        label(for="password") Password
+                        input(type="password" id="password" name="password" required)
+                    
+                    .form-actions
+                        button(type="submit" class="btn btn-primary") Login
+                        a(href="/signup" class="btn btn-secondary") Create Account
+
+    script(src="/js/auth.js")
+            
