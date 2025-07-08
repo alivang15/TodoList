@@ -1,12 +1,5 @@
 # Todo List Application
 
-## Database Credentials
-- Host: cse-mysql-classes-01.cse.umn.edu
-- User: C4131S25S01U49
-- Password: Jay@1220
-- Database: C4131S25S01U49
-- Port: 3306
-
 ## How to Run
 1. Install dependencies:
    ```bash
